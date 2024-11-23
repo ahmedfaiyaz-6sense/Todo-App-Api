@@ -15,15 +15,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'user password is required'],
-    /*validate: {
-      validator: (v)=>{
-        return v.length >= 8;
-      },
-      message: (props) =>
-        `${props.value} password must be hashed`,
-    },*/
-  
+    
   },
+  
 });
 
 module.exports = userSchema;

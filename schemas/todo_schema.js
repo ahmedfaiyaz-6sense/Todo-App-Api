@@ -19,7 +19,8 @@ const todoSchema = new Schema({
   date: {
     type:String,
     default:Date.now()
-  }
+  },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
 });
 
 module.exports= todoSchema
