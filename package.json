@@ -1,0 +1,9 @@
+{
+  "name": "Todo-App-Api",
+  "version": "1.0.0",
+  "description": "Todo App api project",
+  "main": "index.js",
+  "repository": "https://github.com/ahmedfaiyaz-6sense/Todo-App-Api",
+  "author": "Ahmed Faiyaz",
+  "license": "MIT"
+}
