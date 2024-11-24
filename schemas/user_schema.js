@@ -17,6 +17,7 @@ const userSchema = new Schema({
     required: [true, 'user password is required'],
     
   },
+  todos:[ { type: Schema.Types.ObjectId, ref: 'Todo' }], 
   
 });
 

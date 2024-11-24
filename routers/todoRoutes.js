@@ -4,11 +4,13 @@ const todoSchema = require("../schemas/todo_schema");
 const userSchema = require("../schemas/user_schema");
 const verify_jwt = require("../middlewares/verify_jwt");
 const Todo = mongoose.model("Todo", todoSchema);
+const User = mongoose.model("User",userSchema)
 const todoRoute = express();
 
 todoRoute.get("/all", async (req, res) => {
   try {
     const results = await Todo.find().populate('author');
+    
     res.status(200).send({
       status: "Success",
       message: results,
@@ -39,7 +41,7 @@ todoRoute.get("/title/:title", async (req, res) => {
 
 todoRoute.get("/:id", async (req, res) => {
   try {
-    const result = await Todo.findById(req.params.id);
+    const result = await Todo.findById(req.params.id).populate('author');
     res.status(201).send({
       status: "Success",
       message: result,
@@ -66,6 +68,7 @@ todoRoute.post("/batch_add_todos", async (req, res) => {
   }
 });
 todoRoute.post("/add_todo", verify_jwt,async (req, res) => {
+
   const newTodo = new Todo({
     title: req.body.title,
     content: req.body.content,
@@ -73,7 +76,9 @@ todoRoute.post("/add_todo", verify_jwt,async (req, res) => {
   });
   try {
     const response = await newTodo.save();
-
+    const user = await User.findById(req.userid)
+    user.todos.push(newTodo)
+    await user.save()
     res.status(201).send({
       status: "Success",
       message: response,

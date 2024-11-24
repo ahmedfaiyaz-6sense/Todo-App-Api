@@ -8,7 +8,7 @@ const verify_jwt=(req,res,next)=>{
         const decoded= jsonWebToken.verify(token,process.env.PRIVATE_KEY)
         const {username,id}=decoded
         req.username=username
-        req.userId=id
+        req.userid=id
         req.loginSuccess=true
         next()
     }catch{
