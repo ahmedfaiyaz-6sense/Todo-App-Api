@@ -8,7 +8,33 @@ const verify_jwt = require("../middlewares/verify_jwt");
 require("dotenv").config();
 const User = mongoose.model("User", userSchema);
 
-userRoute.get("/:id", (req, res) => {});
+userRoute.get("/:id",async (req, res) => {
+  try{
+     const response = await User.findById(req.params.id).populate("todos")
+     if(response){
+      res.status(200).send(
+        {
+          status:"Success",
+          message:response
+        }
+      )
+     }else{
+      res.status(404).send(
+        {
+          status:"Failed",
+          message:"Not found"
+        }
+      )
+     }
+  }catch(error){
+    res.status(500).send(
+      {
+        status:"Failed",
+        message:error || error.message
+      }
+    )
+  }
+});
 
 userRoute.post("/signup", async (req, res) => {
   try {

@@ -20,7 +20,7 @@ const todoSchema = new Schema({
     type:String,
     default:Date.now()
   },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
+  author : { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 module.exports= todoSchema
